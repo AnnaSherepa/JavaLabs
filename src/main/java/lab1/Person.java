@@ -34,9 +34,9 @@ public abstract class Person{
         StringBuilder stringBuild = new StringBuilder();
         stringBuild.append("Ім'я: ")
                 .append(name)
-                .append(" \tПрізвище")
+                .append(" \tПрізвище: ")
                 .append(surname)
-                .append("Вік: ")
+                .append("\tВік: ")
                 .append(age)
                 .append(sex);
 

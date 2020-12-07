@@ -4,13 +4,13 @@ public enum Sex{
     man{
         @Override
         public String toString(){
-            return "Стать: чоловік";
+            return "\tСтать: чоловік";
         }
     },
     woman{
         @Override
         public String toString(){
-            return "Стать: жінка";
+            return "\tСтать: жінка";
         }
     };
 

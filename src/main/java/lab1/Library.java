@@ -3,6 +3,7 @@ package lab1;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class Library implements LibraryFunctions {
     private ArrayList<Author> authors;
@@ -195,6 +196,15 @@ public class Library implements LibraryFunctions {
         this.searchReaderById(reader.getIdTicket()).deleteRecord(i);
     }
 
+    public ArrayList<Librarian> filterLibrarian(Predicate< ?super Librarian> lib){
+        ArrayList<Librarian> librarians = new ArrayList<Librarian>();
+        for(Librarian l: this.librarians){
+            if (lib.test(l)){
+                librarians.add(l);
+            }
+        }
+        return librarians;
+    }
 
 
 

@@ -1,6 +1,11 @@
 import lab1.*;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
@@ -33,4 +38,5 @@ public class LibraryMockTest {
         library.deleteRecord(r, 0);
 
     }
+
 }

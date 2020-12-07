@@ -4,6 +4,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 
 public class LibraryTest {
     private static Library library;
@@ -20,6 +24,8 @@ public class LibraryTest {
         author2 = new Author("Іван", "Франко", "Якович", 60, Sex.man, 1874,1916);
         author3 = new Author("Леся", "Українка","Петрівна", 47, Sex.woman, 1840, 1861);
         librarian = new Librarian("Олександр", "Мельник", "Іванович", 46, Sex.man, "+067-063-32-21", 456.2);
+        library.setLibrarians( new Librarian("Ольга", "Гончар", "Микитівна", 33, Sex.woman, "+067-063-53-11", 1956.2));
+        library.setLibrarians( new Librarian("Марія", "Козак", "Назарівна", 45, Sex.woman, "+067-063-32-21", 2056.2));
 
         book1 = new Book("Перебендя", author1, 3, Type.teacher);
         book2 = new Book("Кобзар", author1, 1, Type.teacher);
@@ -164,5 +170,20 @@ public class LibraryTest {
 
     }
 
+    @Test
+    public void filterLibrarianTryToFind(){
 
+        ArrayList<Librarian> expected = library.getLibrarians().stream().filter(librarian -> librarian.getAge() > 45).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Librarian> actual = library.filterLibrarian(librarian -> librarian.getAge() > 45);
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void filterLibrarianIfFalse(){
+        Library library = new Library();
+        int actual = library.filterLibrarian(librarian -> false).size();
+        Assert.assertEquals(0, actual);
+
+    }
 }

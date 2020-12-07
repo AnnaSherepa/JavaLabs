@@ -11,7 +11,7 @@ public class Librarian extends Person {
     @Override
     public void show(boolean var) {
         System.out.println("Бібліотекар");
-        super.show();
+        super.show(var);
         System.out.println("Id контракту: " + idContract);
         System.out.println("Телефон: " + phoneNumber);
         System.out.println("Заробітня плата : " + salary);
