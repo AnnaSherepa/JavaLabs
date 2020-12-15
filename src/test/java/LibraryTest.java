@@ -15,7 +15,7 @@ public class LibraryTest {
     private static Reader reader;
     private static Author author1, author2, author3;
     private static Librarian librarian;
-    private static Book book1, book2;
+    private static Book book1, book2, book3;
 
     @BeforeClass
     public static void setUp(){
@@ -30,13 +30,15 @@ public class LibraryTest {
 
         book1 = new Book("Перебендя", author1, 3, Type.teacher);
         book2 = new Book("Кобзар", author1, 1, Type.teacher);
+        book3 = new Book("Рокові перехрестя",library.searchAuthorBySurname("Франко") , 1, Type.teacher);
 
         library.setAuthors(author1);
         library.setAuthors(author2);
         //library.setAuthors(author3);
 
         library.setBooks(book2);
-        //library.setBooks(book1);
+        library.setBooks(book1);
+        library.setBooks(book3);
         library.setLibrarians(librarian);
 
         library.setReaders(reader);
@@ -172,6 +174,13 @@ public class LibraryTest {
     }
 
     @Test
+    public void mostPopularAuthorTryToFind(){
+        Author actual = library.mostPopularAuthor();
+        Assert.assertEquals(author1, actual);
+    }
+
+
+    @Test
     public void filterLibrarianTryToFind(){
         ArrayList<Librarian> expected = library.getLibrarians().stream().filter(librarian -> librarian.getAge() > 45).collect(Collectors.toCollection(ArrayList::new));
         Map<Boolean, ArrayList<Librarian>> map = library.filterLibrarian(librarian -> librarian.getAge() > 45);
@@ -185,6 +194,5 @@ public class LibraryTest {
         Library library = new Library();
         int actual = library.filterLibrarian(librarian -> false).get(Boolean.TRUE).size();
         Assert.assertEquals(0, actual);
-
     }
 }
