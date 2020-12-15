@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -172,9 +173,9 @@ public class LibraryTest {
 
     @Test
     public void filterLibrarianTryToFind(){
-
         ArrayList<Librarian> expected = library.getLibrarians().stream().filter(librarian -> librarian.getAge() > 45).collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<Librarian> actual = library.filterLibrarian(librarian -> librarian.getAge() > 45);
+        Map<Boolean, ArrayList<Librarian>> map = library.filterLibrarian(librarian -> librarian.getAge() > 45);
+        ArrayList<Librarian> actual = map.get(Boolean.TRUE);
         Assert.assertEquals(expected, actual);
 
     }
@@ -182,7 +183,7 @@ public class LibraryTest {
     @Test
     public void filterLibrarianIfFalse(){
         Library library = new Library();
-        int actual = library.filterLibrarian(librarian -> false).size();
+        int actual = library.filterLibrarian(librarian -> false).get(Boolean.TRUE).size();
         Assert.assertEquals(0, actual);
 
     }

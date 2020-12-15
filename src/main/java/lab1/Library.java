@@ -1,8 +1,8 @@
 package lab1;
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 
 public class Library implements LibraryFunctions {
@@ -196,14 +196,44 @@ public class Library implements LibraryFunctions {
         this.searchReaderById(reader.getIdTicket()).deleteRecord(i);
     }
 
-    public ArrayList<Librarian> filterLibrarian(Predicate< ?super Librarian> lib){
+    public Map<Boolean, ArrayList<Librarian>> filterLibrarian(Predicate< ?super Librarian> lib){
+        Map<Boolean, ArrayList<Librarian>> return_value = new HashMap<>();
         ArrayList<Librarian> librarians = new ArrayList<Librarian>();
+        ArrayList<Librarian> not_librarians = new ArrayList<Librarian>();
         for(Librarian l: this.librarians){
             if (lib.test(l)){
                 librarians.add(l);
+            }else{
+                not_librarians.add(l);
             }
         }
-        return librarians;
+
+        return_value.put(Boolean.TRUE, librarians);
+        return_value.put(Boolean.FALSE, not_librarians);
+        return return_value;
+    }
+
+    public Author mostPopularAuthor(){
+        Map<Author,Integer> map = new HashMap<>();
+        ArrayList<Author> authors = new ArrayList<>();
+        this.books.forEach(book -> authors.addAll(book.getAuthors()));
+        authors.forEach(
+                author -> {
+                    if(map.containsKey(author)   ) map.put(author, map.get(author) + 1);
+                    else map.put(author, 1);
+                }
+        );
+
+        Set<Map.Entry<Author,Integer>> entrySet=map.entrySet();
+        Integer desiredObject= Collections.max(map.values());//что хотим найти
+
+        for (Map.Entry<Author,Integer> pair : entrySet) {
+            if (desiredObject.equals(pair.getValue())) {
+                return pair.getKey();// нашли наше значение и возвращаем  ключ
+            }
+        }
+
+       return null;
     }
 
 
