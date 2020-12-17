@@ -1,7 +1,7 @@
 import lab1.*;
 import org.junit.Test;
 
-public class ReaderTest {
+public class ReaderIT {
 
     @Test
     public void setRecordSetOneRecord() {

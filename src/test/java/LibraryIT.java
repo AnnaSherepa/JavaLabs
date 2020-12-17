@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
-public class LibraryTest {
+public class LibraryIT {
     private static Library library;
     private static Reader reader;
     private static Author author1, author2, author3;
